@@ -74,7 +74,7 @@ def train_model():
     if len(eval_history) > 0:
         df = pd.DataFrame(eval_history)
 
-        cols_to_keep = ['epoch', 'eval_loss', 'eval_chrf', 'eval_cer', 'eval_meteor']
+        cols_to_keep = ['epoch', 'eval_loss', 'eval_chrf', 'eval_cer']
         cols_to_keep = [c for c in cols_to_keep if c in df.columns]
         df = df[cols_to_keep]
 

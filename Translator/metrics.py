@@ -1,10 +1,8 @@
 import evaluate
 import numpy as np
 
-meteor = evaluate.load("meteor")
 chrf = evaluate.load("chrf")
 cer = evaluate.load("cer")
-
 
 def compute_metrics(eval_preds, tokenizer):
     preds, labels = eval_preds
@@ -20,7 +18,6 @@ def compute_metrics(eval_preds, tokenizer):
     decoded_labels = [label.strip() for label in decoded_labels]
 
     result = {}
-    result["meteor"] = meteor.compute(predictions=decoded_preds, references=decoded_labels)["meteor"]
     result["chrf"] = chrf.compute(predictions=decoded_preds, references=decoded_labels)["score"]
     result["cer"] = cer.compute(predictions=decoded_preds, references=decoded_labels)
 

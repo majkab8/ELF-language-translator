@@ -1,4 +1,3 @@
-import pandas as pd
 from torch.utils.data import Dataset
 import config
 
@@ -19,10 +18,10 @@ class ElvishDataset(Dataset):
 
         max_len = getattr(config, "MAX_LENGTH", 128)
 
-        inputs = self.tokenizer(src, return_tensors="pt", padding="max_length",
-                                 truncation=True, max_length=64)
-        labels = self.tokenizer(tgt, return_tensors="pt", padding="max_length",
-                                 truncation=True, max_length=64)
+        inputs = self.tokenizer(src, return_tensors="pt",
+                                 truncation=True, max_length=max_len)
+        labels = self.tokenizer(tgt, return_tensors="pt",
+                                 truncation=True, max_length=max_len)
 
         return {
             "input_ids": inputs["input_ids"].squeeze(),
