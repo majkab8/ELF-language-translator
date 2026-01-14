@@ -31,11 +31,13 @@ def parse_xml_to_csv(xml_path, output_csv_path):
 
         if not glosses: continue
 
-        for g in glosses:
-            parts = [part.strip() for section in g.split(',') for part in section.split(' or ')]
-            for p in parts:
-                if p:
-                    dataset.append((form, p))
+    for g in glosses:
+        parts = [part.strip() for section in g.split(',') for part in section.split(' or ') if part.strip()]
+        for p in parts:
+            dataset.append((form, p))
+            for eng_variant in [p.lower(), p.upper(), p.capitalize()]:
+                if eng_variant != p:
+                    dataset.append((form, eng_variant))
 
     os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
 
