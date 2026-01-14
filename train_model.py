@@ -2,6 +2,7 @@ import torch
 import os
 import pandas as pd
 import config
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from transformers import (
     AutoTokenizer,
@@ -66,6 +67,43 @@ def train_model():
     trainer.save_model(config.OUTPUT_DIR)
     tokenizer.save_pretrained(config.OUTPUT_DIR)
 
+    history = trainer.state.log_history
+
+    eval_history = [x for x in history if 'eval_loss' in x]
+
+    if len(eval_history) > 0:
+        df = pd.DataFrame(eval_history)
+
+        cols_to_keep = ['epoch', 'eval_loss', 'eval_chrf', 'eval_cer', 'eval_meteor']
+        cols_to_keep = [c for c in cols_to_keep if c in df.columns]
+        df = df[cols_to_keep]
+
+        df = df.round(4)
+
+        print("\n" + "=" * 40)
+        print("RESULTS:")
+        print("=" * 40)
+        print(df.to_string(index=False))
+        print("=" * 40 + "\n")
+
+        plt.figure(figsize=(10, 5))
+        plt.subplot(1, 2, 1)
+        plt.plot(df['epoch'], df['eval_loss'], label='Loss', color='red', marker='o')
+        plt.title('Loss')
+        plt.xlabel('Epoch')
+        plt.grid(True)
+        plt.legend()
+
+        if 'eval_chrf' in df.columns:
+            plt.subplot(1, 2, 2)
+            plt.plot(df['epoch'], df['eval_chrf'], label='CHrF', color='green', marker='o')
+            plt.title('CHrF')
+            plt.xlabel('Epoch')
+            plt.grid(True)
+            plt.legend()
+
+        plt.tight_layout()
+        plt.savefig("training_results.png")
 
 if __name__ == "__main__":
     train_model()
