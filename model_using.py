@@ -33,16 +33,7 @@ if __name__ == "__main__":
     if args.text:
         print(f"EN: {args.text} -> Q: {translate(args.text, model, tokenizer, device)}")
     else:
-        print("\n" + "=" * 30)
-        print("FAST MODEL TEST:")
-        words_to_test = ["star", "sword", "king", "love", "river"]
-
-        for word in words_to_test:
-            translation = translate(word, model, tokenizer, device)
-            print(f"EN: {word:10} -> Q: {translation}")
-        print("=" * 30 + "\n")
-
-        print("Press q to quit.")
+        print("Type q to quit.")
         while True:
             text = input("Type a word or sentence to translate: ")
             if text.lower() == 'q': break
