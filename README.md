@@ -6,6 +6,9 @@ The data for this project is gathered from elvamo site.
 
 ## INSTALLMENT INSTRUCTION:
 
-1. Install required packages from requirements.txt.
-2. Train model by running train_model.py file.
-3. Use model by running model_using.py file.
+1. Clone this repository
+   > https://github.com/majkab8/ELF-language-translator.git
+2. Install required packages from requirements.txt.
+   > pip install -r requirements.txt
+3. Train model by running train_model.py file.
+4. Use model by running model_using.py file.
