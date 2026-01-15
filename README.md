@@ -15,6 +15,16 @@ We used fine-tuned [Helsinki- NLP English to Finnish model](https://huggingface.
    
    > pip install -r requirements.txt
    
+2.1 Optional if u have NVIDIA Graphic card
+
+   > pip install torch --index-url https://download.pytorch.org/whl/cu126
+
 3. Train model by running train_model.py file.
+
+   > python train_model.py
+
 4. Use model by running model_using.py file.
+   
+   > python model_using.py
+
 5. Have fun!
