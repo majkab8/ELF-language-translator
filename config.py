@@ -1,7 +1,7 @@
 import os
 
 DATA_DIR = "data"
-XML_FILE = "eldamo.xml"
+XML_FILE = "data/eldamo.xml"
 CSV_FILE = os.path.join(DATA_DIR, "elvish_dictionary.csv")
 OUTPUT_DIR = "./eldamo_model_final"
 
