@@ -45,7 +45,8 @@ def train_model():
         save_total_limit=2,
         num_train_epochs=config.EPOCHS,
         predict_with_generate=True,
-        fp16=torch.cuda.is_available(),
+        fp16=True,
+        bf16=False,
         logging_steps=50,
         report_to="none"
     )
