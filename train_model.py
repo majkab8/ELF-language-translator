@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import config
 import matplotlib.pyplot as plt
+import transformers
 from sklearn.model_selection import train_test_split
 from transformers import (
     AutoTokenizer,
