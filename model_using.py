@@ -24,7 +24,8 @@ def translate(text, model, tokenizer, device):
             early_stopping=True
         )
         decoded_words = tokenizer.decode(outputs[0], skip_special_tokens=True)
-        translated_words.append(decoded_words)
+        clean_word = decoded_words.rstrip("0123456789")
+        translated_words.append(clean_word)
 
     return " ".join(translated_words)
 
