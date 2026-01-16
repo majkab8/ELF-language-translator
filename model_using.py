@@ -11,16 +11,22 @@ def load_model(model_path):
     return model, tokenizer, device
 
 def translate(text, model, tokenizer, device):
-    input_text = config.MODEL_PREFIX + text
-    inputs = tokenizer(input_text, return_tensors="pt").to(device)
+    words = text.split()
+    translated_words = []
+    for word in words:
+        input_text = config.MODEL_PREFIX + word
+        inputs = tokenizer(input_text, return_tensors="pt").to(device)
 
-    outputs = model.generate(
-        inputs.input_ids,
-        max_length=40,
-        num_beams=4,
-        early_stopping=True
-    )
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+        outputs = model.generate(
+            inputs.input_ids,
+            max_length=40,
+            num_beams=4,
+            early_stopping=True
+        )
+        decoded_words = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        translated_words.append(decoded_words)
+
+    return " ".join(translated_words)
 
 
 if __name__ == "__main__":
