@@ -118,5 +118,6 @@ Wait for the model to load, then open `http://127.0.0.1:5000`.
 ## Notes
 
 - The model translates word by word, so longer sentences take proportionally longer.
+- The training data contains only nouns, verbs, adjectives and adverbs, so articles and prepositions are not translated — the model is a dictionary, not a grammar.
 - Only English to Elvish is supported. The reverse direction, and other source languages,
   would each require a separately trained model.
