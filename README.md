@@ -8,6 +8,10 @@ trained on 3537 word pairs extracted from the [Eldamo](https://eldamo.org) lexic
 
 The translator can be used in two ways: from the command line, or through a web page.
 
+![Webpage screenshot](webpage_screenshot.png)
+
+## Training results
+
 ![Training results](training_results.png)
 
 ## Project structure
