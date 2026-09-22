@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
 
 print("Model is loading, it might take a while...")
-model, tokenizer, device = load_model(config.OUTPUT_DIR)
+model, tokenizer, device = load_model(config.MODEL_ID)
 print(f"Model is ready to use, using {device}")
 
 @app.route("/")

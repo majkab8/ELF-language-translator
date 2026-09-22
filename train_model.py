@@ -4,7 +4,7 @@ import pandas as pd
 import config
 import matplotlib.pyplot as plt
 import transformers
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GroupShuffleSplit
 from transformers import (
     AutoTokenizer,
     AutoModelForSeq2SeqLM,
@@ -38,7 +38,11 @@ def train_model():
 
     df = pd.read_csv(config.CSV_FILE)
 
-    train_df, test_df = train_test_split(df, test_size=0.1, random_state=42)
+    groups = df[config.SOURCE_LANG].astype(str).str.lower()
+    splitter = GroupShuffleSplit(n_splits=1, test_size=0.1, random_state=42)
+    train_idx, test_idx = next(splitter.split(df, groups=groups))
+    train_df, test_df = df.iloc[train_idx], df.iloc[test_idx]
+    print(f"Train: {len(train_df)}, eval: {len(test_df)}")
     train_dataset = ElvishDataset(train_df, tokenizer, prefix=config.MODEL_PREFIX)
     eval_dataset = ElvishDataset(test_df, tokenizer, prefix=config.MODEL_PREFIX)
 
@@ -56,7 +60,9 @@ def train_model():
         fp16=use_cuda,
         bf16=False,
         logging_steps=50,
-        report_to="none"
+        report_to="none",
+        warmup_steps=500,
+        weight_decay=0.01
     )
 
     trainer = Seq2SeqTrainer(

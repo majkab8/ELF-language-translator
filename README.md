@@ -4,15 +4,11 @@ A novice NLP project that translates English words and sentences into Elvish —
 language created by J.R.R. Tolkien for his *Lord of the Rings* series.
 
 The model is a fine-tuned [Helsinki-NLP English to Finnish model](https://huggingface.co/Helsinki-NLP/opus-mt-en-fi),
-trained on 3537 word pairs extracted from the [Eldamo](https://eldamo.org) lexicon.
+trained on 10266 word pairs (9186 used for training, 1080 for evaluation) extracted from the [Eldamo](https://eldamo.org) lexicon.
 
 The translator can be used in two ways: from the command line, or through a web page.
 
 ![Webpage screenshot](webpage_screenshot.png)
-
-## Training results
-
-![Training results](training_results.png)
 
 ## Project structure
 
@@ -66,6 +62,33 @@ evaluation metrics per epoch and writes `training_results.png`.
 
 Training must be run before either of the steps below — the model directory is not part of
 this repository.
+
+## Training results
+
+The dataset is split so that all entries sharing an English word — case variants and synonyms
+alike — stay on the same side of the split. The model is therefore evaluated on words it has
+never seen, which makes the two rows below measure very different things.
+
+| | Exact matches | chrF | CER |
+|---|---|---|---|
+| Words from the lexicon | 68.2% | 79.2 | 0.17 |
+| Words outside the lexicon | 5.8% | 16.9 | 0.75 |
+
+*Measured on 400 random samples from each side of the split.*
+
+The first row is what the translator does in practice: for a word present in the Eldamo lexicon
+it returns the correct Elvish form roughly two times out of three.
+
+The second row is low by the nature of the task. No rule derives the Quenya word for *castle*
+from other entries — the mapping has to be memorised, not inferred. What the model does learn is
+the shape of the language: asked for an unknown word it answers with a real, phonetically
+plausible Quenya form rather than nonsense, which is why chrF lands near 17 instead of zero.
+
+![Training results](training_results.png)
+
+The rising evaluation loss reflects the same thing. As the model memorises the lexicon it grows
+more confident about entries it knows and correspondingly worse on ones it cannot know, so for
+this task the curve is expected rather than a sign of a training problem.
 
 ## Using the translator
 
