@@ -1,9 +1,15 @@
+import os
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import config
 import argparse
 
 def load_model(model_path):
+    if not os.path.isdir(model_path):
+        raise SystemExit(
+            f"No trained model found at '{model_path}'. "
+            "Run 'python train_model.py' first to create it."
+        )
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
     device = "cuda" if torch.cuda.is_available() else "cpu"

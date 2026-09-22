@@ -25,9 +25,16 @@ def train_model():
     tokenizer = AutoTokenizer.from_pretrained(config.MODEL_NAME)
     model = AutoModelForSeq2SeqLM.from_pretrained(config.MODEL_NAME)
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    use_cuda = torch.cuda.is_available()
+    device = "cuda" if use_cuda else "cpu"
     model.to(device)
     print(f"Using device: {device}")
+    if not use_cuda:
+        print(
+            "WARNING: No CUDA GPU detected - training on CPU will be very slow. "
+            "Check that this interpreter has a CUDA build of torch "
+            f"(installed: {torch.__version__}, CUDA: {torch.version.cuda})."
+        )
 
     df = pd.read_csv(config.CSV_FILE)
 
@@ -46,7 +53,7 @@ def train_model():
         save_total_limit=2,
         num_train_epochs=config.EPOCHS,
         predict_with_generate=True,
-        fp16=True,
+        fp16=use_cuda,
         bf16=False,
         logging_steps=50,
         report_to="none"
@@ -57,7 +64,7 @@ def train_model():
         args=args,
         train_dataset=train_dataset,
         eval_dataset=eval_dataset,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=DataCollatorForSeq2Seq(tokenizer, model=model),
         compute_metrics=lambda preds: compute_metrics(preds, tokenizer)
     )
