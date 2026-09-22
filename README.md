@@ -1,6 +1,6 @@
 # English to Elvish Translator
 
-A novice NLP project that translates English words and sentences into Elvish — the artificial
+A novice NLP project that translates English words and sentences into Elvish precisely Quenya — the artificial
 language created by J.R.R. Tolkien for his *Lord of the Rings* series.
 
 The model is a fine-tuned [Helsinki-NLP English to Finnish model](https://huggingface.co/Helsinki-NLP/opus-mt-en-fi),
