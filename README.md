@@ -121,3 +121,11 @@ Wait for the model to load, then open `http://127.0.0.1:5000`.
 - The training data contains only nouns, verbs, adjectives and adverbs, so articles and prepositions are not translated — the model is a dictionary, not a grammar.
 - Only English to Elvish is supported. The reverse direction, and other source languages,
   would each require a separately trained model.
+
+## Contact
+
+Maja Bednarek
+
+- GitHub: [majkab8](https://github.com/majkab8)
+- Email: [bednarekmaja02@gmail.com]
+- LinkedIn: [https://www.linkedin.com/in/maja-bednarek-599119324/]
