@@ -1,4 +1,14 @@
-# English to Elvish Translator
+<p align="center">
+  <img src="docs/header.png" width="720" alt="English to Elvish Translator">
+</p>
+
+<h3 align="center">Speak like an elf: English into Quenya, the language of Tolkien's elves</h3>
+
+<p align="center">
+  <br>
+  Type a <b>word</b> or a sentence and get it back in Quenya, from the command line or a web page.
+  <br><br>
+</p>
 
 A novice NLP project that translates English words and sentences into Elvish precisely Quenya — the artificial
 language created by J.R.R. Tolkien for his *Lord of the Rings* series.
@@ -8,9 +18,13 @@ trained on 10266 word pairs (9186 used for training, 1080 for evaluation) extrac
 
 The translator can be used in two ways: from the command line, or through a web page.
 
+### 📸 Screenshots
+<img src="docs/divider.svg" width="200" alt="">
+
 ![Webpage screenshot](webpage_screenshot.png)
 
-## Project structure
+### 🗂️ Project structure
+<img src="docs/divider.svg" width="200" alt="">
 
 ```
 ELF-language-translator/
@@ -25,7 +39,8 @@ ELF-language-translator/
 └── data/                  Eldamo XML and the extracted dictionary
 ```
 
-## Setup
+### ⚙️ Setup
+<img src="docs/divider.svg" width="200" alt="">
 
 1. Clone this repository.
 
@@ -50,7 +65,8 @@ ELF-language-translator/
    Make sure this goes into the same environment as the other packages. If `train_model.py`
    prints `Using device: cpu`, the CUDA build did not land where Python is looking.
 
-## Training
+### 🏋️ Training
+<img src="docs/divider.svg" width="200" alt="">
 
 ```
 python train_model.py
@@ -63,7 +79,8 @@ evaluation metrics per epoch and writes `training_results.png`.
 Training must be run before either of the steps below — the model directory is not part of
 this repository.
 
-## Training results
+### 📊 Training results
+<img src="docs/divider.svg" width="200" alt="">
 
 The dataset is split so that all entries sharing an English word — case variants and synonyms
 alike — stay on the same side of the split. The model is therefore evaluated on words it has
@@ -90,9 +107,10 @@ The rising evaluation loss reflects the same thing. As the model memorises the l
 more confident about entries it knows and correspondingly worse on ones it cannot know, so for
 this task the curve is expected rather than a sign of a training problem.
 
-## Using the translator
+### 🧝 Using the translator
+<img src="docs/divider.svg" width="200" alt="">
 
-### Command line
+#### 💻 Command line
 
 ```
 python model_using.py
@@ -105,7 +123,7 @@ as an argument:
 python model_using.py --text "the king of the forest"
 ```
 
-### Web page
+#### 🌐 Web page
 
 Run from the project root:
 
@@ -115,7 +133,8 @@ python -m Site.app
 
 Wait for the model to load, then open `http://127.0.0.1:5000`.
 
-## Notes
+### 📝 Notes
+<img src="docs/divider.svg" width="200" alt="">
 
 - The model translates word by word, so longer sentences take proportionally longer.
 - The training data contains only nouns, verbs, adjectives and adverbs, so articles and prepositions are not translated — the model is a dictionary, not a grammar.
